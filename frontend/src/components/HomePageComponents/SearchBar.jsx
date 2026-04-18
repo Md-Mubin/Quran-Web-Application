@@ -58,7 +58,7 @@ const SearchBar = () => {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search ayahs by translation..."
-                    className="flex-1 px-4 py-2 border rounded-lg"
+                    className="flex-1 px-4 py-2 outline-0 border rounded-lg"
                 />
                 <button
                     type="submit"
