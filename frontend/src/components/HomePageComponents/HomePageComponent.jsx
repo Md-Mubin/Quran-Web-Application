@@ -1,16 +1,12 @@
 "use client";
-import { useSettings } from '@/context/SettingsContext';
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
-import SearchBar from './SearchBar';
 import SettingPanel from '../reuseable/SettingPanel';
-import { Cog } from 'lucide-react';
 
 const HomePageComponent = () => {
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
     const [allSurah, setAllSurah] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { setIsOpen, isOpen } = useSettings();
 
     useEffect(() => {
         async function fetchAllSurah() {
