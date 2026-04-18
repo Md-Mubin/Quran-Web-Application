@@ -4,12 +4,14 @@ import Link from 'next/link.js';
 import { useSettings } from '@/context/SettingsContext';
 import SettingPanel from '../reuseable/SettingPanel';
 import { ArrowLeft, Cog } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 const SurahById = ({ id }) => {
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
     const [surah, setSurah] = useState(null);
     const [loading, setLoading] = useState(true);
     const { settings, setIsOpen, isOpen } = useSettings();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
         async function fetchSurah() {
@@ -22,6 +24,22 @@ const SurahById = ({ id }) => {
         }
         fetchSurah();
     }, [id]);
+
+    useEffect(() => {
+        if (surah && !loading) {
+            const verseId = searchParams.get('verse');
+            if (verseId) {
+                const element = document.getElementById(`verse-${verseId}`);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    element.classList.add('ring-2', 'ring-brandColor');
+                    setTimeout(() => {
+                        element.classList.remove('ring-2', 'ring-brandColor');
+                    }, 3000);
+                }
+            }
+        }
+    }, [surah, loading, searchParams]);
 
     const arabicStyle = {
         fontFamily: settings.arabicFont,
@@ -85,7 +103,7 @@ const SurahById = ({ id }) => {
 
                 <div className="space-y-6">
                     {surah.verses.map((verse) => (
-                        <div key={verse.id} className="bg-white rounded-lg shadow p-6">
+                        <div key={verse.id} id={`verse-${verse.id}`} className="bg-white rounded-lg shadow p-6 transition-all duration-300">
                             <div className="text-left text-brandColor/60 mb-2 text-sm">
                                 {surah.id}:{verse.id}
                             </div>

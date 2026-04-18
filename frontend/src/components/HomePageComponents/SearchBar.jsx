@@ -32,8 +32,21 @@ const SearchBar = () => {
         }
     };
 
-    const handleLinkClick = (surahId) => {
-        router.push(`/surah/${surahId}`);
+    const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    
+    const highlightText = (text, highlight) => {
+        if (!highlight.trim() || !text) return text;
+        const escapedHighlight = escapeRegExp(highlight);
+        const parts = text.split(new RegExp(`(${escapedHighlight})`, 'gi'));
+        return parts.map((part, i) => 
+            part.toLowerCase() === highlight.toLowerCase() 
+                ? <span key={i} className="font-bold text-brandColor">{part}</span> 
+                : part
+        );
+    };
+
+    const handleLinkClick = (surahId, verseId) => {
+        router.push(`/surah/${surahId}?verse=${verseId}`);
         setShowResults(false);
         setQuery('');
     };
@@ -66,14 +79,14 @@ const SearchBar = () => {
                     {results?.map((result, index) => (
                         <div
                             key={index}
-                            onClick={() => handleLinkClick(result.surahId)}
+                            onClick={() => handleLinkClick(result.surahId, result.verseId)}
                             className="p-3 border-b cursor-pointer hover:bg-[#00000022] duration-200"
                         >
                             <div className="font-arabic text-black text-lg mb-1" style={{ fontFamily: 'Amiri Quran, serif' }}>
-                                {result.text}
+                                {highlightText(result.text, query)}
                             </div>
                             <div className="text-sm text-gray-600">
-                                {result.translation}
+                                {highlightText(result.translation, query)}
                             </div>
                             <div className="text-xs text-brandColor mt-1">
                                 {result.surahName} - Verse {result.verseId}
