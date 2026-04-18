@@ -25,18 +25,7 @@ const HomePageComponent = () => {
         <section className="min-h-screen">
             <header className="bg-brandColor text-white shadow-lg">
                 <div className="max-w-6xl mx-auto px-4 py-4">
-                    <div className="flex justify-between items-center gap-4">
-                        <h1 className="text-2xl font-bold">Quran</h1>
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="p-2 hover:bg-[#00000022] rounded-lg flex items-center gap-1 cursor-pointer duration-200"
-                        >
-                             <Cog/> Settings
-                        </button>
-                    </div>
-                    <div className="mt-4">
-                        <SearchBar />
-                    </div>
+                    <h1 className="text-2xl font-bold">Quran Wep App</h1>
                 </div>
             </header>
 
