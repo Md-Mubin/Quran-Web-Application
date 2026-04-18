@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link.js';
 import { useSettings } from '@/context/SettingsContext';
 import SettingPanel from '../reuseable/SettingPanel';
-import { Cog } from 'lucide-react';
+import { ArrowLeft, Cog } from 'lucide-react';
 
 const SurahById = ({ id }) => {
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -54,8 +54,8 @@ const SurahById = ({ id }) => {
             <header className="bg-brandColor text-white shadow-lg sticky top-0 z-40">
                 <div className="max-w-4xl mx-auto px-4 py-4">
                     <div className="flex justify-between items-center gap-4">
-                        <Link href="/" className="p-2 hover:bg-[#00000022] rounded-lg cursor-pointer duration-200">
-                            ← Back
+                        <Link href="/" className="p-2 hover:bg-[#00000022] rounded-lg cursor-pointer duration-200 flex items-center gap-1">
+                            <ArrowLeft size={20}/> Back
                         </Link>
                         <h1 className="text-xl font-bold flex-1 text-center">
                             {surah.transliteration}
