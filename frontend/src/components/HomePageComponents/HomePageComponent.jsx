@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
+import SearchBar from './SearchBar';
 import SettingPanel from '../reuseable/SettingPanel';
 
 const HomePageComponent = () => {
@@ -21,7 +22,10 @@ const HomePageComponent = () => {
         <section className="min-h-screen">
             <header className="bg-brandColor text-white shadow-lg">
                 <div className="max-w-6xl mx-auto px-4 py-4">
-                    <h1 className="text-2xl font-bold">Quran Wep App</h1>
+                    <h1 className="text-2xl font-bold">Quran</h1>
+                    <div className="mt-4">
+                        <SearchBar />
+                    </div>
                 </div>
             </header>
 
