@@ -3,22 +3,33 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 const SearchBar = () => {
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
     const handleSearch = async (e) => {
         e.preventDefault();
         if (!query.trim()) return;
 
-        const res = await fetch(`${baseURL}/api/search?q=${encodeURIComponent(query)}`);
-        const data = await res.json();
-        setResults(data);
-        setShowResults(true);
+        setIsLoading(true);
+        try {
+            const res = await fetch(`${baseURL}/api/search?q=${encodeURIComponent(query)}`);
+            const data = await res.json();
+            setResults(data);
+            setShowResults(true);
+        } catch (error) {
+            console.error('Search error:', error);
+            setResults([]);
+            setShowResults(true);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleLinkClick = (surahId) => {
@@ -38,8 +49,9 @@ const SearchBar = () => {
                 />
                 <button
                     type="submit"
-                    className="px-4 py-2 brandColor text-white rounded-lg hover:bg-[#00000022] duration-200 cursor-pointer">
-                    Search
+                    disabled={isLoading}
+                    className="w-20 py-2 brandColor text-white rounded-lg hover:bg-[#00000022] duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    {isLoading ? <Loader2 className="animate-spin h-4 w-4 text-white" /> : 'Search'}
                 </button>
             </form>
 
