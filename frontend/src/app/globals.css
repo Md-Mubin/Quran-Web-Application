@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  /* colors */
+  --color-brandColor: #009966;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  /* fonts */
+  --font-amiri: 'Amiri', serif;
+  --font-scheherazade: 'Scheherazade New', serif;
+  --font-noto-naskh-arabic: 'Noto Naskh Arabic', serif;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-open-sans: 'Open Sans', sans-serif;
+  --font-lato: 'Lato', sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
